@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>slider</title>
+	<style>
+		body {
+			margin: 0;
+		}
+		.img_wrap img {
+			position: absolute;
+			top: 0;
+			right: 0;
+			left: 0;
+			bottom: 0;
+			opacity: 0;
+			visibility: hidden;
+			z-index: 100;
+			transition: 2s;
+		}
+		.img_wrap .current_img {		    
+			opacity: 1;
+			visibility: visible;
+			z-index: 200;
+			transition: 2s;
+		}
+	</style>
+</head>
+<body>
+	<div class="img_wrap">
+		<img src="images/1.png" alt="" class="current_img">
+		<img src="images/2.png" alt="">
+		<img src="images/3.png" alt="">
+		<img src="images/4.png" alt="">
+		<img src="images/5.png" alt="">
+		<img src="images/8.png" alt="">
+		<img src="images/9.png" alt="">
+		<img src="images/10.png" alt="">
+	</div>
+
+	<script
+  src="https://code.jquery.com/jquery-3.2.1.min.js"
+  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+  crossorigin="anonymous"></script>
+<script>
+
+$(document).ready(function(){
+	var windoWidth = $(window).width();
+	var windoHeight = $(window).height();
+	var slideLen = $('.img_wrap img').length -1
+
+//define img width = window width
+$('.img_wrap img').each(function(){
+	if($(window).height() < 1000) {
+		$(this).css('width', windoWidth + 'px')
+	} else {
+		$(this).css('height', windoHeight + 'px')
+	}
+});
+
+//define img wrap width = window width
+$('.img_wrap').css({
+	'width': windoWidth + 'px',
+	'height': windoHeight + 'px'
+});
+
+setInterval(function () {
+
+	 // if last img in block
+	 if($('.current_img').index() == slideLen){
+	 	$('.img_wrap img').last().removeClass('current_img')
+	 	$('.img_wrap img').first().addClass('current_img')
+	 }
+
+	//switch class
+	$('.current_img').removeClass('current_img').next().addClass('current_img')
+}, 5000);
+
+});
+</script>
+</body>
+</html>
